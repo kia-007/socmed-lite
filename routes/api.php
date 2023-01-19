@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +37,16 @@ Route::prefix('follow')->group(function () {
 
 Route::prefix('post')->group(function () {
     Route::get('/', [PostController::class, 'index']);
+    Route::post('/create', [PostController::class, 'store']);
+    Route::post('/delete', [PostController::class, 'destroy']);
+});
+
+Route::prefix('like')->group(function () {
+    Route::post('/create', [LikeController::class, 'store']);
+    Route::post('/delete', [LikeController::class, 'destroy']);
+});
+
+Route::prefix('comment')->group(function () {
+    Route::post('/create', [CommentController::class, 'store']);
+    Route::post('/delete', [CommentController::class, 'destroy']);
 });

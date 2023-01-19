@@ -26,7 +26,7 @@ class UserController extends Controller
                 "data" => []
             ], 404);   
         }
-        return $data;
+        return $result;
     }
 
     public function login(Request $request)
@@ -73,11 +73,10 @@ class UserController extends Controller
                 "data" => []
             ], 403);
         }else{
-            $mail_check = User::where('email', $request->email)
-                ->first();
+            $mail_check = User::where('email', $request->email)->first();
             $username_check = User::where('username', $request->username)->first();
             if($mail_check == NULL && $username_check == NULL){
-                $image_path = $request->file('image')->store('image', 'public');
+                $image_path = $request->file('image')->store("images/portofolio/$request->username", 'public');
                 $user = new User;
                 $user->image = $image_path;
                 $user->username = $request->input('username');

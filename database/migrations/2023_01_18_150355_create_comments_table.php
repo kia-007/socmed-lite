@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_comment'); // comment by someone
             $table->bigInteger('post_comment'); // comment to the content
+            $table->string('description');
             $table->timestamp('deleted_at')->nullable();
             $table->foreign('user_comment')
                 ->references('id')->on('users');
