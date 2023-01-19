@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use JWTAuth;
 
 class UserController extends Controller
 {
@@ -38,11 +39,13 @@ class UserController extends Controller
             $pass_check = Crypt::decryptString($mail_check->password);
             $isTrue = ($request->password == $pass_check)?true:false;
             if($isTrue){
+                $token = JWTAuth::fromUser($mail_check);
                 $result = response()->json([
                     "message" => "Login Successfully",
                     "data" => [
                         "fullname" => $mail_check->name,
-                        "email" => $mail_check->email
+                        "email" => $mail_check->email,
+                        "token" => $token
                     ]
                 ], 200);
             }

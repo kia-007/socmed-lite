@@ -30,23 +30,23 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('follow')->group(function () {
-    Route::post('/', [FollowController::class, 'index']);
-    Route::post('/following', [FollowController::class, 'store']);
-    Route::post('/unfollow', [FollowController::class, 'destroy']);
+    Route::post('/', [FollowController::class, 'index'])->middleware('jwt.verify');
+    Route::post('/following', [FollowController::class, 'store'])->middleware('jwt.verify');
+    Route::post('/unfollow', [FollowController::class, 'destroy'])->middleware('jwt.verify');
 });
 
 Route::prefix('post')->group(function () {
-    Route::get('/', [PostController::class, 'index']);
-    Route::post('/create', [PostController::class, 'store']);
-    Route::post('/delete', [PostController::class, 'destroy']);
+    Route::get('/', [PostController::class, 'index'])->middleware('jwt.verify');
+    Route::post('/create', [PostController::class, 'store'])->middleware('jwt.verify');
+    Route::post('/delete', [PostController::class, 'destroy'])->middleware('jwt.verify');
 });
 
 Route::prefix('like')->group(function () {
-    Route::post('/create', [LikeController::class, 'store']);
-    Route::post('/delete', [LikeController::class, 'destroy']);
+    Route::post('/create', [LikeController::class, 'store'])->middleware('jwt.verify');
+    Route::post('/delete', [LikeController::class, 'destroy'])->middleware('jwt.verify');
 });
 
 Route::prefix('comment')->group(function () {
-    Route::post('/create', [CommentController::class, 'store']);
-    Route::post('/delete', [CommentController::class, 'destroy']);
+    Route::post('/create', [CommentController::class, 'store'])->middleware('jwt.verify');
+    Route::post('/delete', [CommentController::class, 'destroy'])->middleware('jwt.verify');
 });
