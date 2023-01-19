@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('images');
-            $table->string('description');
-            $table->string('captions');
+            $table->string('images')->nullable();
+            $table->string('description')->nullable();
+            $table->string('captions')->nullable();
             $table->bigInteger('upload_by');
             $table->timestamp('deleted_at')->nullable();
             $table->foreign('upload_by')
